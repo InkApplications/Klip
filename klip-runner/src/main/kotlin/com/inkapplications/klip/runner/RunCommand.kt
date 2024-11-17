@@ -5,8 +5,10 @@ import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.types.file
+import kotlin.script.experimental.api.ResultValue
 import kotlin.script.experimental.api.ScriptDiagnostic
 import kotlin.script.experimental.api.onFailure
+import kotlin.script.experimental.api.valueOr
 import kotlin.system.exitProcess
 
 internal object RunCommand: CliktCommand()
@@ -26,12 +28,12 @@ internal object RunCommand: CliktCommand()
 
     override fun run()
     {
-        KlipScript.evalFile(
+        val script = KlipScript.evalFile(
             scriptFile = source,
             verbose = verbose,
-        ).onFailure {
+        ).valueOr {
             it.reports
-                .filter { it.severity >= ScriptDiagnostic.Severity.ERROR }
+                .filter { it.severity == ScriptDiagnostic.Severity.ERROR }
                 .forEach {
                     val location = it.location
                     val locationStr = when {
@@ -39,10 +41,14 @@ internal object RunCommand: CliktCommand()
                         else -> ""
                     }
                     println("${source.name}:$locationStr ${it.message}")
-
-                    it.exception?.printStackTrace()
                 }
-            exitProcess(1)
-        }
+                exitProcess(1)
+        }.returnValue.also {
+            if (it is ResultValue.Error) {
+                it.error.message?.run(::println)
+                it.error.printStackTrace()
+                exitProcess(1)
+            }
+        }.scriptInstance.let { it as KlipScript }
     }
 }

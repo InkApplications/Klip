@@ -18,10 +18,13 @@ import kotlin.script.experimental.jvmhost.createJvmEvaluationConfigurationFromTe
     compilationConfiguration = KlipScriptConfig::class,
 )
 abstract class KlipScript(
+    val scriptFile: File,
     val isVerbose: Boolean,
 ) {
     private val logWriter = FormattedLogWriter(isVerbose)
     val logger: KimchiLogger = ConsolidatedLogger(logWriter)
+    val scriptDir = scriptFile.parent
+    val workingDir = File(".")
 
     companion object
     {
@@ -32,7 +35,7 @@ abstract class KlipScript(
             val source = scriptFile.toScriptSource()
 
             val evaluationConfiguration = createJvmEvaluationConfigurationFromTemplate<KlipScript> {
-                constructorArgs(verbose)
+                constructorArgs(scriptFile, verbose)
             }
 
             val compilationConfiguration = createJvmCompilationConfigurationFromTemplate<KlipScript>()

@@ -1,5 +1,5 @@
 #!/usr/bin/env klip
 
 h1("Hello World")
-debug("Hello??")
+debugLog("Hello??")
 success()

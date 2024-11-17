@@ -15,4 +15,7 @@ application {
 
 dependencies {
     implementation(libs.clikt)
+    implementation(libs.kotlin.scripting.common)
+    implementation(libs.kotlin.scripting.jvm.core)
+    implementation(libs.kotlin.scripting.jvm.host)
 }

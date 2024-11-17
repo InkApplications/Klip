@@ -8,3 +8,15 @@ module = "org.jetbrains.kotlin:kotlin-gradle-plugin"
 [libraries.clikt]
 version = "5.0.1"
 module = "com.github.ajalt.clikt:clikt"
+
+[libraries.kotlin-scripting-common]
+version.ref = "kotlin"
+module = "org.jetbrains.kotlin:kotlin-scripting-common"
+
+[libraries.kotlin-scripting-jvm-core]
+version.ref = "kotlin"
+module = "org.jetbrains.kotlin:kotlin-scripting-jvm"
+
+[libraries.kotlin-scripting-jvm-host]
+version.ref = "kotlin"
+module = "org.jetbrains.kotlin:kotlin-scripting-jvm-host"

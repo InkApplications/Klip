@@ -14,8 +14,9 @@ import kotlin.script.experimental.jvmhost.createJvmEvaluationConfigurationFromTe
     fileExtension = "klip.kts",
     compilationConfiguration = KlipScriptConfig::class,
 )
-abstract class KlipScript
-{
+abstract class KlipScript(
+    val isVerbose: Boolean,
+) {
     fun hello()
     {
         println("Hello Wald")
@@ -25,11 +26,12 @@ abstract class KlipScript
     {
         fun evalFile(
             scriptFile: File,
+            verbose: Boolean,
         ): ResultWithDiagnostics<EvaluationResult> {
             val source = scriptFile.toScriptSource()
 
             val evaluationConfiguration = createJvmEvaluationConfigurationFromTemplate<KlipScript> {
-                constructorArgs()
+                constructorArgs(verbose)
             }
 
             val compilationConfiguration = createJvmCompilationConfigurationFromTemplate<KlipScript>()

@@ -9,5 +9,6 @@ internal object KlipScriptConfig: ScriptCompilationConfiguration({
     jvm {
         dependenciesFromCurrentContext(wholeClasspath = true)
         defaultImports("com.inkapplications.klip.runner.extensions.output.*")
+        defaultImports("com.inkapplications.klip.runner.extensions.commands.*")
     }
 })

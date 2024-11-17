@@ -1,9 +1,14 @@
 [versions]
+coroutines = "1.9.0"
 kotlin = "2.0.21"
 
 [libraries.kotlin-gradle]
 version.ref = "kotlin"
 module = "org.jetbrains.kotlin:kotlin-gradle-plugin"
+
+[libraries.kotlinx-coroutines-core]
+version.ref = "coroutines"
+module = "org.jetbrains.kotlinx:kotlinx-coroutines-core"
 
 [libraries.clikt]
 version = "5.0.1"

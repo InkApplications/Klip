@@ -4,4 +4,4 @@ DIR_BIN="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 DIR_PROJECT="$DIR_BIN/.."
 
 "$DIR_BIN/gradlew" --quiet ":klip-runner:installDist" || exit 1
-"$DIR_PROJECT/klip-runner/build/install/klip/bin/klip"
+"$DIR_PROJECT/klip-runner/build/install/klip/bin/klip" "$@"

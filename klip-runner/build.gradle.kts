@@ -12,3 +12,7 @@ application {
     applicationName = "klip"
     mainClass.set("com.inkapplications.klip.runner.MainKt")
 }
+
+dependencies {
+    implementation(libs.clikt)
+}

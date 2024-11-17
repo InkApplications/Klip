@@ -4,3 +4,7 @@ kotlin = "2.0.21"
 [libraries.kotlin-gradle]
 version.ref = "kotlin"
 module = "org.jetbrains.kotlin:kotlin-gradle-plugin"
+
+[libraries.clikt]
+version = "5.0.1"
+module = "com.github.ajalt.clikt:clikt"

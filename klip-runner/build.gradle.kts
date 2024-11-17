@@ -18,4 +18,6 @@ dependencies {
     implementation(libs.kotlin.scripting.common)
     implementation(libs.kotlin.scripting.jvm.core)
     implementation(libs.kotlin.scripting.jvm.host)
+    implementation(libs.kimchi.core)
+    implementation(libs.mordant)
 }

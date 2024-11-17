@@ -1,5 +1,5 @@
 #!/usr/bin/env klip
 
-println("Starting")
-verbose("Hello??")
-hello()
+h1("Hello World")
+debug("Hello??")
+success()

@@ -1,5 +1,8 @@
 package com.inkapplications.klip.runner
 
+import com.inkapplications.klip.runner.extensions.output.FormattedLogWriter
+import kimchi.logger.ConsolidatedLogger
+import kimchi.logger.KimchiLogger
 import java.io.File
 import kotlin.script.experimental.annotations.KotlinScript
 import kotlin.script.experimental.api.EvaluationResult
@@ -17,10 +20,8 @@ import kotlin.script.experimental.jvmhost.createJvmEvaluationConfigurationFromTe
 abstract class KlipScript(
     val isVerbose: Boolean,
 ) {
-    fun hello()
-    {
-        println("Hello Wald")
-    }
+    private val logWriter = FormattedLogWriter(isVerbose)
+    val logger: KimchiLogger = ConsolidatedLogger(logWriter)
 
     companion object
     {

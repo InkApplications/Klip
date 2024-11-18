@@ -23,7 +23,7 @@ jobs:
                 name: Create TAR Archive
                 run: |
                     mkdir -p build/artifacts
-                    tar -czf build/artifacts/klip-runner.tar.gz -C klip-runner/build/install klip
+                    tar -czf build/artifacts/klip-runner.tar.gz -C klip-runner/build/install/klip .
             -
                 name: Upload Build Artifact
                 uses: actions/upload-artifact@v3

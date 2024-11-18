@@ -1,0 +1,65 @@
+name: Release
+on:
+    push:
+        tags: ['*']
+jobs:
+    build:
+        name: Build Runner
+        runs-on: ubuntu-latest
+        steps:
+            -
+                name: Checkout
+                uses: actions/checkout@v4.2.1
+            -
+                name: Configure Java
+                uses: actions/setup-java@v4.4.0
+                with:
+                    java-version: 22
+                    distribution: temurin
+            -
+                name: Build Runner
+                run: bin/gradlew klip-runner:installDist
+            -
+                name: Create TAR Archive
+                run: |
+                    mkdir -p build/artifacts
+                    tar -czf build/artifacts/klip-runner.tar.gz -C klip-runner/build/install klip
+            -
+                name: Upload Build Artifact
+                uses: actions/upload-artifact@v3
+                with:
+                    name: klip-runner
+                    path: build/artifacts/klip-runner.tar.gz
+    draft-release:
+        needs: build
+        name: Draft Github Release
+        runs-on: ubuntu-latest
+        steps:
+            -
+                name: Checkout
+                uses: actions/checkout@v4.2.1
+            -
+                name: Prepare Changelog Text
+                run: mkdir -p build && sed '1,/---/d' CHANGELOG.md | awk '/---/{exit}1' | sed '$d' > build/RELEASE.md
+            -
+                name: Create Release
+                id: create_release
+                uses: actions/create-release@v1.1.4
+                env:
+                      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                with:
+                      tag_name: ${{ github.ref }}
+                      release_name: ${{ github.ref_name }}
+                      draft: true
+                      prerelease: false
+                      body_path: build/RELEASE.md
+            -
+                name: Upload Release Asset
+                uses: actions/upload-release-asset@v1
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                with:
+                    upload_url: ${{ steps.create_release.outputs.upload_url }}
+                    asset_path: klip-runner.tar.gz
+                    asset_name: klip-runner.tar.gz
+                    asset_content_type: application/gzip

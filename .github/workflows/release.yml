@@ -39,6 +39,11 @@ jobs:
                 name: Checkout
                 uses: actions/checkout@v4.2.1
             -
+                name: Download Build Artifact
+                uses: actions/download-artifact@v3
+                with:
+                    name: klip-runner
+            -
                 name: Prepare Changelog Text
                 run: mkdir -p build && sed '1,/---/d' CHANGELOG.md | awk '/---/{exit}1' | sed '$d' > build/RELEASE.md
             -

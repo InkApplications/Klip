@@ -1,4 +1,4 @@
-#!/usr/bin/env klip
+#!/usr/bin/env klip-runner
 
 h1("Hello World")
 debugLog("Hello??")

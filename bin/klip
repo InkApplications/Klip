@@ -1,7 +1,34 @@
 #!/usr/bin/env bash
 
-DIR_BIN="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-DIR_PROJECT="$DIR_BIN/.."
+DIST_BASE="https://github.com/InkApplications/Klip/releases/download/"
+KLIP_HOME="$HOME/.klip/"
+ARTIFACT_NAME="klip-runner.tar.gz"
 
-"$DIR_BIN/gradlew" --quiet ":klip-runner:installDist" || exit 1
-"$DIR_PROJECT/klip-runner/build/install/klip/bin/klip" "$@"
+function __usage() {
+    echo "Usage: klip [VERSION] [FILE] [ARGS]"
+}
+
+version="$1"
+shift
+
+if [[ "$version" == "" ]]; then
+    __usage
+    exit 1
+fi
+
+if ! command -v wget2 &>/dev/null; then
+    echo "ERROR: wget command is required."
+    exit 1
+fi
+
+bin_dir="$KLIP_HOME/runner/$version"
+klip_bin="$bin_dir/bin/klip"
+
+if [ ! -f "$klip_bin" ]; then
+    echo "Downloading Klip $version"
+    mkdir -p "$bin_dir"
+    wget -P "$bin_dir" "$DIST_BASE/$version/$ARTIFACT_NAME" || exit 1;
+    tar -xzf "$bin_dir/$ARTIFACT_NAME" -C "$bin_dir"
+fi
+
+"$klip_bin" "$@"

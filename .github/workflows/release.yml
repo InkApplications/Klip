@@ -59,7 +59,7 @@ jobs:
                       prerelease: false
                       body_path: build/RELEASE.md
             -
-                name: Upload Release Asset
+                name: Upload Klip Runner
                 uses: actions/upload-release-asset@v1
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -68,3 +68,13 @@ jobs:
                     asset_path: klip-runner.tar.gz
                     asset_name: klip-runner.tar.gz
                     asset_content_type: application/gzip
+            -
+                name: Upload Klip Wrapper
+                uses: actions/upload-release-asset@v1
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                with:
+                    upload_url: ${{ steps.create_release.outputs.upload_url }}
+                    asset_path: bin/klip
+                    asset_name: klip
+                    asset_content_type: text/x-shellscript

@@ -18,7 +18,6 @@ dependencies {
     implementation(libs.kotlin.scripting.jvm.core)
     implementation(libs.kotlin.scripting.jvm.host)
     implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.clikt)
     implementation(libs.kimchi.core)
     implementation(libs.mordant)
 }

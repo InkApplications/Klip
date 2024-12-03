@@ -1,5 +1,5 @@
 #!/usr/bin/env klip-runner
 
+debugLog("Args: ${args}")
 h1("Hello World")
-debugLog("Hello??")
 success()

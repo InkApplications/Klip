@@ -10,10 +10,6 @@ module = "org.jetbrains.kotlin:kotlin-gradle-plugin"
 version.ref = "coroutines"
 module = "org.jetbrains.kotlinx:kotlinx-coroutines-core"
 
-[libraries.clikt]
-version = "5.0.1"
-module = "com.github.ajalt.clikt:clikt"
-
 [libraries.kotlin-scripting-common]
 version.ref = "kotlin"
 module = "org.jetbrains.kotlin:kotlin-scripting-common"
